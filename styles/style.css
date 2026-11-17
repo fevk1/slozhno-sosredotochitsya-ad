@@ -2,4 +2,342 @@
 
 .page {
   /* сохраните в разметке и стилях класс page у тега body. Он удобен, чтобы составлять селекторы для разных цветовых тем. */
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--page-bg-color);
+  background-image: var(--page-bg-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Общие элементы */
+
+/* Декоративные уголки: правый верхний и левый нижний */
+.decorated-zone {
+  position: relative;
+}
+
+.decorated-zone::before,
+.decorated-zone::after {
+  content: '';
+  position: absolute;
+  inline-size: var(--corner-size);
+  block-size: var(--corner-size);
+  border: 0 solid var(--control-color);
+  pointer-events: none;
+}
+
+.decorated-zone::before {
+  inset-block-start: var(--edge-gap);
+  inset-inline-end: var(--edge-gap);
+  border-block-start-width: 1px;
+  border-inline-end-width: 1px;
+}
+
+.decorated-zone::after {
+  inset-block-end: var(--edge-gap);
+  inset-inline-start: var(--edge-gap);
+  border-block-end-width: 1px;
+  border-inline-start-width: 1px;
+}
+
+/* Крупный заголовок в шапке и подвале */
+.main-title {
+  color: var(--main-title-color);
+  font-size: var(--main-title-size);
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+/* Заголовок или абзац на цветной плашке */
+.title-decor {
+  color: var(--decor-text-color);
+  font-weight: 700;
+  background-color: var(--accent-color);
+}
+
+.link {
+  text-decoration: none;
+  text-shadow: 2px 2px 0 var(--accent-color);
+}
+
+.link:hover {
+  border-block-end: 1px solid currentColor;
+}
+
+.link:focus {
+  outline: none;
+}
+
+.link:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Шапка */
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto 1fr;
+  block-size: 100vh;
+  min-block-size: var(--screen-min-height);
+  padding: var(--edge-gap);
+}
+
+.header__theme-menu {
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+}
+
+.header__theme-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 9px;
+}
+
+.header__theme-menu-button {
+  padding: 0 12px;
+  border: 1px solid transparent;
+  color: var(--control-color);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-transform: lowercase;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.header__theme-menu-button:hover {
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.header__theme-menu-button:focus {
+  outline: none;
+}
+
+.header__theme-menu-button:focus-visible {
+  border-block-end-color: currentColor;
+}
+
+.header__theme-menu-button_active {
+  border-color: currentColor;
+  pointer-events: none;
+}
+
+.header__theme-menu-button_active:hover {
+  border-color: currentColor;
+}
+
+/* Надпись REC: декоративная, показывается только в тёмной теме */
+.header__rec {
+  position: absolute;
+  inset-block-start: var(--edge-gap);
+  inset-inline-end: calc(var(--edge-gap) + var(--corner-size) + 5px);
+  display: block;
+  color: var(--control-color);
+}
+
+.header__rec::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: calc(100% + 9px);
+  inline-size: 13px;
+  block-size: 13px;
+  border-radius: 50%;
+  background-color: currentColor;
+  transform: translateY(-50%);
+}
+
+.header__title {
+  grid-row: 2;
+  text-shadow: 4px 4px 0 var(--accent-color);
+}
+
+.header__subtitle {
+  grid-row: 3;
+  align-self: center;
+}
+
+/* Основной контент */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding: var(--content-padding-block) var(--edge-gap);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--block-gap);
+}
+
+.section__heading {
+  color: var(--heading-color);
+  font-size: inherit;
+  font-weight: 700;
+}
+
+/* Заголовок «А можно в картинках?» оформлен как плашка */
+.section__heading_type_decor {
+  color: var(--decor-text-color);
+}
+
+.section__content,
+.section__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--block-gap);
+}
+
+.section__subheading {
+  font-size: inherit;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card__title {
+  font-size: inherit;
+}
+
+.card__title_weight_regular {
+  font-weight: 400;
+}
+
+/* Галерея */
+.section_type_gallery {
+  gap: var(--gallery-gap);
+}
+
+.gallery {
+  display: grid;
+  gap: var(--gallery-gap);
+}
+
+.gallery__image {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/* Подвал */
+.footer {
+  display: grid;
+  place-items: center;
+  block-size: 100vh;
+  min-block-size: var(--screen-min-height);
+  padding: var(--edge-gap);
+}
+
+.footer__title {
+  text-shadow: 2px 2px 0 var(--accent-color);
+}
+
+/* Планшет */
+@media (min-width: 768px) {
+  .header {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .header__theme-menu {
+    grid-column: 2;
+  }
+
+  .header__title {
+    grid-column: 1 / -1;
+    margin-inline-start: calc(-1 * var(--edge-gap));
+  }
+
+  .header__subtitle {
+    grid-column: 2;
+  }
+
+  .section {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+
+  .section__content,
+  .section__list {
+    grid-column: 2 / -1;
+  }
+
+  .section_type_causes .section__list {
+    grid-column: 1 / -1;
+  }
+
+  .section_type_gallery .section__heading,
+  .section_type_gallery .gallery {
+    grid-column: 1 / -1;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      'sunset sunset ice-cream'
+      'tape books ice-cream'
+      'tape street street';
+  }
+
+  .gallery__image_type_sunset {
+    grid-area: sunset;
+  }
+
+  .gallery__image_type_ice-cream {
+    grid-area: ice-cream;
+  }
+
+  .gallery__image_type_tape {
+    grid-area: tape;
+  }
+
+  .gallery__image_type_books {
+    grid-area: books;
+  }
+
+  .gallery__image_type_street {
+    grid-area: street;
+  }
+
+  .gallery__image_type_ice-cream,
+  .gallery__image_type_tape {
+    block-size: 100%;
+    min-block-size: 0;
+    object-fit: cover;
+  }
+}
+
+/* Десктоп */
+@media (min-width: 1024px) {
+  .header__theme-menu {
+    grid-column: 1 / -1;
+    align-self: start;
+    justify-self: center;
+  }
+
+  .header__theme-menu-list {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .section_type_causes .section__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--block-gap);
+  }
 }
